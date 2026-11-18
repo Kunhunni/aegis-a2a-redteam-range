@@ -1,0 +1,103 @@
+version: "3.9"
+
+services:
+  siem-ids:
+    build: .
+    container_name: a2a-siem-ids
+    command: uvicorn services.siem_ids.app:app --host 0.0.0.0 --port 5601 --reload
+    ports:
+      - "5601:5601"
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    networks:
+      a2a_net:
+        ipv4_address: 172.28.0.10
+
+  orchestrator:
+    build: .
+    container_name: a2a-orchestrator
+    command: uvicorn services.orchestrator.app:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    depends_on:
+      - siem-ids
+    networks:
+      a2a_net:
+        ipv4_address: 172.28.0.20
+
+  db-agent:
+    build: .
+    container_name: a2a-db-agent
+    command: uvicorn services.db_agent.app:app --host 0.0.0.0 --port 8001 --reload
+    ports:
+      - "8001:8001"
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    depends_on:
+      - siem-ids
+    networks:
+      a2a_net:
+        ipv4_address: 172.28.0.21
+
+  ppt-agent:
+    build: .
+    container_name: a2a-ppt-agent
+    command: uvicorn services.ppt_agent.app:app --host 0.0.0.0 --port 8002 --reload
+    ports:
+      - "8002:8002"
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    depends_on:
+      - siem-ids
+    networks:
+      a2a_net:
+        ipv4_address: 172.28.0.22
+
+  sec-agent:
+    build: .
+    container_name: a2a-sec-agent
+    command: uvicorn services.sec_agent.app:app --host 0.0.0.0 --port 8003 --reload
+    ports:
+      - "8003:8003"
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    depends_on:
+      - siem-ids
+    networks:
+      a2a_net:
+        ipv4_address: 172.28.0.23
+
+  web-dashboard:
+    build: .
+    container_name: a2a-web-dashboard
+    command: uvicorn services.web_dashboard.app:app --host 0.0.0.0 --port 8080 --reload
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    depends_on:
+      - orchestrator
+    networks:
+      a2a_net:
+        ipv4_address: 172.28.0.30
+
+networks:
+  a2a_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/24

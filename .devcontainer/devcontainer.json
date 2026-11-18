@@ -1,0 +1,21 @@
+{
+  "name": "AEGIS-A2A Red & Purple Team Range",
+  "image": "mcr.microsoft.com/devcontainers/python:3.11-bullseye",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "moby": true,
+      "dockerDashComposeVersion": "v2"
+    }
+  },
+  "postCreateCommand": "sudo apt-get update && sudo apt-get install -y nmap jq curl sqlite3 && pip install -r requirements.txt",
+  "forwardPorts": [5601, 8000, 8001, 8002, 8003, 8080, 8888],
+  "portsAttributes": {
+    "5601": { "label": "SIEM Sentinel (Kibana UI)", "onAutoForward": "notify" },
+    "8000": { "label": "A2A Orchestrator", "onAutoForward": "silent" },
+    "8001": { "label": "MSSQL Database Agent", "onAutoForward": "silent" },
+    "8002": { "label": "PPT Generator Agent", "onAutoForward": "silent" },
+    "8003": { "label": "Security Scanner Agent", "onAutoForward": "silent" },
+    "8080": { "label": "Sales Analytics Web App", "onAutoForward": "openPreview" },
+    "8888": { "label": "Red Team Exploit Server", "onAutoForward": "silent" }
+  }
+}
