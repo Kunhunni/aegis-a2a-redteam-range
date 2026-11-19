@@ -22,7 +22,7 @@ app = FastAPI(
 )
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
-GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
+GROQ_MODEL = os.getenv("GROQ_MODEL", "Qwen3.8-27B")
 STORAGE_DIR = os.getenv("STORAGE_DIR", "/app/storage")
 
 llm_client = AsyncOpenAI(

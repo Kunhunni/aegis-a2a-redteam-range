@@ -4,7 +4,7 @@ I built **AEGIS-A2A** to move beyond single-turn prompt injection toys and simul
 
 ## 🧠 Why I Architected the Lab This Way
 
-1. **Speed & Realism (Groq API over Local Quantized Models):** Running a local 7B model on CPU takes ~2 minutes per multi-agent workflow. By wiring the agents to **Groq (`llama-3.3-70b-versatile`)** via an OpenAI-compatible client (with deterministic fallbacks if offline), the entire 4-agent pipeline executes in **under 4 seconds**.
+1. **Speed & Realism (Groq API over Local Quantized Models):** Running a local 7B model on CPU takes ~2 minutes per multi-agent workflow. By wiring the agents to **Groq (`Qwen3.8-27B`)** via an OpenAI-compatible client (with deterministic fallbacks if offline), the entire 4-agent pipeline executes in **under 4 seconds**.
 2. **GitHub Codespaces Native:** A full Windows Server + MSSQL + ELK stack eats 16GB+ RAM and crashes free cloud dev environments. I containerized all 6 services in lightweight Python/FastAPI containers so any engineer or recruiter can spin up the entire range in one click.
 3. **Purple Team by Design:** Hiring managers don't just ask how to break AI systems—they ask how to fix them. Every core service exposes a live `/admin/security-config` toggle (`vulnerable` vs. `hardened`) so I can demonstrate both the exploit and the architectural remediation in real time.
 

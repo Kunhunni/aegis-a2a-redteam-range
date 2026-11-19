@@ -27,7 +27,7 @@ app = FastAPI(
 )
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
-GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
+GROQ_MODEL = os.getenv("GROQ_MODEL", "Qwen3.8-27B")
 DB_AGENT_URL = os.getenv("DB_AGENT_URL", "http://localhost:8001")
 PPT_AGENT_URL = os.getenv("PPT_AGENT_URL", "http://localhost:8002")
 SEC_AGENT_URL = os.getenv("SEC_AGENT_URL", "http://localhost:8003")
